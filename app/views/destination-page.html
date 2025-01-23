@@ -1,0 +1,53 @@
+{% extends "layouts/main.html" %}
+
+{% block pageTitle %}
+  Question page template – {{ serviceName }} – GOV.UK Prototype Kit
+{% endblock %}
+
+{% block beforeContent %}
+  {{ govukBackLink({
+    text: "Back",
+    href: "start-page"
+  }) }}
+{% endblock %}
+
+{% from "govuk/components/radios/macro.njk" import govukRadios %}
+
+{% block content %}
+  <div class="govuk-grid-row">
+    <div class="govuk-grid-column-two-thirds">
+        <form method="post" action="details-page">
+        <div class="govuk-form-group">
+          <fieldset class="govuk-fieldset" aria-describedby="changedName-hint">
+            <legend class="govuk-fieldset__legend govuk-fieldset__legend--l">
+              <h1 class="govuk-fieldset__heading">
+                Where would you like to go?
+              </h1>
+            </legend>
+            <div id="changedName-hint" class="govuk-hint">
+              Select a destination
+            </div>
+            <div class="govuk-radios govuk-radios--inline" data-module="govuk-radios">
+              <div class="govuk-radios__item">
+                <input class="govuk-radios__input" id="changedName" name="changedName" type="radio" value="Moon">
+                <label class="govuk-label govuk-radios__label" for="changedName">
+                  Moon
+                </label>
+              </div>
+              <div class="govuk-radios__item">
+                <input class="govuk-radios__input" id="changedName-2" name="changedName" type="radio" value="Mars">
+                <label class="govuk-label govuk-radios__label" for="changedName-2">
+                  Mars
+                </label>
+              </div>
+            </div>
+          </fieldset>
+        </div>
+        
+        {{ govukButton({
+          text: "Save and Continue"
+        }) }}
+      </form>
+    </div>
+  </div>
+{% endblock %}
