@@ -11,57 +11,121 @@
  }) }}
 {% endblock %}
 
+{% if errors.length > 0 %}
+ {{ govukErrorSummary({
+   titleText: "There is a problem",
+   errorList: errors
+ }) }}
+{% endif %}
+
+<div class="govuk-form-group {% if errors.length > 0 %}govuk-form-group--error{% endif %}">
+
 {% block content %}
+
 <div class="govuk-grid-row">
- <div class="govuk-grid-column-two-thirds">
-  <form action="summary-page" method="post">
-     <fieldset class="govuk-fieldset">
-       <legend class="govuk-fieldset__legend govuk-fieldset__legend--l">
-         <h1 class="govuk-fieldset__heading">
-           What is your address?
-         </h1>
-       </legend>
-       
-       <div class="govuk-form-group">
-         <label class="govuk-label" for="address-line-1">
-           Address line 1
-         </label>
-         <input class="govuk-input" id="address-line-1" name="addressLine1" type="text" autocomplete="address-line1">
-       </div>
-
-       <div class="govuk-form-group">
-         <label class="govuk-label" for="address-line-2">
-           Address line 2 (optional)
-         </label>
-         <input class="govuk-input" id="address-line-2" name="addressLine2" type="text" autocomplete="address-line2">
-       </div>
-
-       <div class="govuk-form-group">
-         <label class="govuk-label" for="address-town">
-           Town or city
-         </label>
-         <input class="govuk-input govuk-!-width-two-thirds" id="address-town" name="addressTown" type="text" autocomplete="address-level2">
-       </div>
-
-       <div class="govuk-form-group">
-         <label class="govuk-label" for="address-county">
-           County (optional)
-         </label>
-         <input class="govuk-input govuk-!-width-two-thirds" id="address-county" name="addressCounty" type="text">
-       </div>
-
-       <div class="govuk-form-group">
-         <label class="govuk-label" for="address-postcode">
-           Postcode
-         </label>
-         <input class="govuk-input govuk-input--width-10" id="address-postcode" name="addressPostcode" type="text" autocomplete="postal-code">
-       </div>
-     </fieldset>
-
-     {{ govukButton({
-       text: "Save and Continue"
-     }) }}
-   </form>
+  <div class="govuk-grid-column-two-thirds">
+    <div id="error-container"></div>
+ 
+    <form action="summary-page" method="post" novalidate>
+      <fieldset class="govuk-fieldset">
+        <legend class="govuk-fieldset__legend govuk-fieldset__legend--l">
+          <h1 class="govuk-fieldset__heading">
+            What is your address?
+          </h1>
+        </legend>
+ 
+        <div class="govuk-form-group">
+          <label class="govuk-label" for="address-line-1">
+            Address line 1
+          </label>
+          <span id="address-line-1-error" class="govuk-error-message" style="display: none">
+            <span class="govuk-visually-hidden">Error:</span> Enter your address
+          </span>
+          <input class="govuk-input" id="address-line-1" name="addressLine1" type="text" autocomplete="address-line1">
+        </div>
+ 
+        <div class="govuk-form-group">
+          <label class="govuk-label" for="address-line-2">
+            Address line 2 (optional)
+          </label>
+          <input class="govuk-input" id="address-line-2" name="addressLine2" type="text" autocomplete="address-line2">
+        </div>
+ 
+        <div class="govuk-form-group">
+          <label class="govuk-label" for="address-town">
+            Town or city
+          </label>
+          <span id="address-town-error" class="govuk-error-message" style="display: none">
+            <span class="govuk-visually-hidden">Error:</span> Enter a town or city
+          </span>
+          <input class="govuk-input govuk-!-width-two-thirds" id="address-town" name="addressTown" type="text" autocomplete="address-level2">
+        </div>
+ 
+        <div class="govuk-form-group">
+          <label class="govuk-label" for="address-county">
+            County (optional)
+          </label>
+          <input class="govuk-input govuk-!-width-two-thirds" id="address-county" name="addressCounty" type="text">
+        </div>
+ 
+        <div class="govuk-form-group">
+          <label class="govuk-label" for="address-postcode">
+            Postcode
+          </label>
+          <span id="address-postcode-error" class="govuk-error-message" style="display: none">
+            <span class="govuk-visually-hidden">Error:</span> Enter a valid postcode
+          </span>
+          <input class="govuk-input govuk-input--width-10" id="address-postcode" name="addressPostcode" type="text" autocomplete="postal-code">
+        </div>
+      </fieldset>
+ 
+      {{ govukButton({
+        text: "Continue"
+      }) }}
+    </form>
+  </div>
  </div>
-</div>
+
+ <script>
+   // Get form field values
+ function showAddressErrors() {
+  const addressLine1 = document.getElementById('address-line-1').value;
+  const addressTown = document.getElementById('address-town').value;
+  const addressPostcode = document.getElementById('address-postcode').value;
+  const errorContainer = document.getElementById('error-container');
+  let errors = [];
+
+  if (!addressLine1.trim()) errors.push('Enter your address');
+  if (!addressTown.trim()) errors.push('Enter a town or city');
+  if (!addressPostcode.trim()) errors.push('Enter a postcode');
+
+  if (errors.length > 0) {
+    // Showing the error summary
+    errorContainer.innerHTML = `
+      <div class="govuk-error-summary" role="alert">
+        <h2 class="govuk-error-summary__title">There is a problem</h2>
+        <div class="govuk-error-summary__body">
+          <ul class="govuk-list govuk-error-summary__list">
+            ${errors.map(error => `<li>${error}</li>`).join('')}
+          </ul>
+        </div>
+      </div>`;
+    
+    // Add error styling to fields
+    if (!addressLine1.trim()) document.getElementById('address-line-1').classList.add('govuk-input--error');
+    if (!addressTown.trim()) document.getElementById('address-town').classList.add('govuk-input--error');
+    if (!addressPostcode.trim()) document.getElementById('address-postcode').classList.add('govuk-input--error');
+    
+    return true;
+  }
+  return false;
+}
+
+document.querySelector('form').addEventListener('submit', (e) => {
+  if (showAddressErrors()) {
+    e.preventDefault();
+  }
+});
+
+</script>
 {% endblock %}

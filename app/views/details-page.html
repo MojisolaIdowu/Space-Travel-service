@@ -15,24 +15,51 @@
 {% from "govuk/components/input/macro.njk" import govukInput %}
 
 <div class="govuk-grid-row">
- <div class="govuk-grid-column-two-thirds">
-  <form action="address-page" method="post">
-     <div class="govuk-form-group">
-       <legend class="govuk-fieldset__legend govuk-fieldset__legend--l">
-         <h1 class="govuk-fieldset__heading">
-           What is your Full Name
-         </h1>
-       </legend>
-       <label class="govuk-label" for="fullName">
-         Enter full name
-       </label>
-       <input class="govuk-input" id="fullName" name="fullName" type="text" spellcheck="false" autocomplete="name">
-     </div>
+  <div class="govuk-grid-column-two-thirds">
+    <form action="address-page" method="post" novalidate id="nameForm">
+      <div id="error-container" class="govuk-error-summary" role="alert" tabindex="-1" style="display: none">
+        <h2 class="govuk-error-summary__title">There is a problem</h2>
+        <div class="govuk-error-summary__body">
+          <ul class="govuk-list govuk-error-summary__list">
+            <li><a href="#fullName">Enter your full name</a></li>
+          </ul>
+        </div>
+      </div>
 
-     {{ govukButton({
-       text: "Save and Continue"
-     }) }}
-   </form>
- </div>
+      <div class="govuk-form-group" id="nameFieldGroup">
+        <legend class="govuk-fieldset__legend govuk-fieldset__legend--l">
+          <h1 class="govuk-fieldset__heading">What is your Full Name</h1>
+        </legend>
+        <label class="govuk-label" for="fullName">Enter full name</label>
+        <div id="name-error" class="govuk-error-message" style="display: none">
+          <span class="govuk-visually-hidden">Error:</span> Enter your full name
+        </div>
+        <input class="govuk-input" id="fullName" name="fullName" type="text" spellcheck="false" autocomplete="name">
+      </div>
+
+      {{ govukButton({
+        text: "Save and Continue"
+      }) }}
+    </form>
+  </div>
 </div>
+
+<!-- Error handing (feature validation) -->
+
+<script>
+document.getElementById('nameForm').addEventListener('submit', function(event) {
+  const nameInput = document.getElementById('fullName');
+  const errorContainer = document.getElementById('error-container');
+  const nameError = document.getElementById('name-error');
+  const nameFieldGroup = document.getElementById('nameFieldGroup');
+
+  if (!nameInput.value.trim()) {
+    event.preventDefault();
+    errorContainer.style.display = 'block';
+    nameError.style.display = 'block';
+    nameFieldGroup.classList.add('govuk-form-group--error');
+    nameInput.classList.add('govuk-input--error');
+  }
+});
+</script>
 {% endblock %}
