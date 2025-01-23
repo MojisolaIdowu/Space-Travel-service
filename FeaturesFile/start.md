@@ -14,4 +14,4 @@ It also:
 -Includes a "Start now" button to initiate the application process.
 
 Preview:
-![Space travel service start page design showing layout with required information](Images/startpage.png)
+![Space travel service start page design showing layout with required information](../Images/startpage.png)

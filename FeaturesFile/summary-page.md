@@ -9,4 +9,4 @@ The key elements of this page are:
 - Send application: After reviewing and confirming the details, the user can click the "Accept and send" button to submit their application.
 
 Preview:
-![Space travel service confirmation page design](Images/summarypage.png)
+![Space travel service confirmation page design](../Images/summarypage.png)
