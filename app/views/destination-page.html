@@ -14,40 +14,81 @@
 {% from "govuk/components/radios/macro.njk" import govukRadios %}
 
 {% block content %}
-  <div class="govuk-grid-row">
-    <div class="govuk-grid-column-two-thirds">
-        <form method="post" action="details-page">
-        <div class="govuk-form-group">
-          <fieldset class="govuk-fieldset" aria-describedby="changedName-hint">
-            <legend class="govuk-fieldset__legend govuk-fieldset__legend--l">
-              <h1 class="govuk-fieldset__heading">
-                Where would you like to go?
-              </h1>
-            </legend>
-            <div id="changedName-hint" class="govuk-hint">
-              Select a destination
-            </div>
-            <div class="govuk-radios govuk-radios--inline" data-module="govuk-radios">
-              <div class="govuk-radios__item">
-                <input class="govuk-radios__input" id="changedName" name="changedName" type="radio" value="Moon">
-                <label class="govuk-label govuk-radios__label" for="changedName">
-                  Moon
-                </label>
-              </div>
-              <div class="govuk-radios__item">
-                <input class="govuk-radios__input" id="changedName-2" name="changedName" type="radio" value="Mars">
-                <label class="govuk-label govuk-radios__label" for="changedName-2">
-                  Mars
-                </label>
-              </div>
-            </div>
-          </fieldset>
+<div class="govuk-grid-row">
+  <div class="govuk-grid-column-two-thirds">
+    <form method="post" action="details-page" novalidate id="destinationForm">
+      
+      <!-- Error summary -->
+      <div id="error-container" class="govuk-error-summary" role="alert" tabindex="-1" style="display: none">
+        <h2 class="govuk-error-summary__title">There is a problem</h2>
+        <div class="govuk-error-summary__body">
+          <ul class="govuk-list govuk-error-summary__list">
+            <li><a href="#changedName">Select a destination</a></li>
+          </ul>
         </div>
-        
-        {{ govukButton({
-          text: "Save and Continue"
-        }) }}
-      </form>
-    </div>
+      </div>
+      
+      <div class="govuk-form-group" id="destinationFieldGroup">
+        <fieldset class="govuk-fieldset" aria-describedby="changedName-hint">
+          <legend class="govuk-fieldset__legend govuk-fieldset__legend--l">
+            <h1 class="govuk-fieldset__heading">
+              Where would you like to go?
+            </h1>
+          </legend>
+          <div id="changedName-hint" class="govuk-hint">
+            Select a destination
+          </div>
+          <div id="radio-error" class="govuk-error-message" style="display: none">
+            <span class="govuk-visually-hidden">Error:</span> Select a destination
+          </div>
+          <div class="govuk-radios govuk-radios--inline" data-module="govuk-radios">
+            <div class="govuk-radios__item">
+              <input class="govuk-radios__input" id="changedName" name="changedName" type="radio" value="Moon">
+              <label class="govuk-label govuk-radios__label" for="changedName">
+                Moon
+              </label>
+            </div>
+            <div class="govuk-radios__item">
+              <input class="govuk-radios__input" id="changedName-2" name="changedName" type="radio" value="Mars">
+              <label class="govuk-label govuk-radios__label" for="changedName-2">
+                Mars
+              </label>
+            </div>
+          </div>
+        </fieldset>
+      </div>
+
+      {{ govukButton({
+        text: "Save and Continue"
+      }) }}
+    </form>
   </div>
+</div>
+
+<!-- Error handling (feature validation) -->
+<script>
+document.getElementById('destinationForm').addEventListener('submit', function(event) {
+  const radios = document.getElementsByName('changedName');
+  const errorContainer = document.getElementById('error-container');
+  const radioError = document.getElementById('radio-error');
+  const destinationFieldGroup = document.getElementById('destinationFieldGroup');
+
+  // Check if any radio button is selected
+  let isChecked = false;
+  for (const radio of radios) {
+    if (radio.checked) {
+      isChecked = true;
+      break;
+    }
+  }
+
+  if (!isChecked) {
+    event.preventDefault();
+    // Display error summary and inline message
+    errorContainer.style.display = 'block';
+    radioError.style.display = 'block';
+    destinationFieldGroup.classList.add('govuk-form-group--error');
+  }
+});
+</script>
 {% endblock %}
