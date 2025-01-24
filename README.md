@@ -84,7 +84,6 @@ I Added user's name and destination to confirmation page to:
 - Clear headings and typography
 - Multi-step form validation (3 step flow)
 - GOV.UK-style buttons
-- Form validation
 - Check your answers pattern
 - Accessibility considerations
 - WCAG 2.1 compliance
