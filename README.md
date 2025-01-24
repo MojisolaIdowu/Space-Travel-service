@@ -15,24 +15,28 @@ Here is the user flow for the "Space Travel Service" service on GOV.UK
 - 7. Submission: User submits the form.
 
 ## Paths
-app/views/index.html - Index Page
+-[Index Page](app/views/index.html)
+-[Start Page](app/views/start-page.html)
+-[Destination Page](app/views/destination-page.html)
+-gg
+-
 
 ## The Structure of the Git Repo consists of: 
 
-## Main Branch (main)
+### Main Branch (main)
 - This is the Base prototype functionality
 - Include the core form components
 - Basic routing setup
 - GDS Design System integration
 - Basic form templates (HTML&CSS)
 
-## Feature Branch (feature/validation)
+### Feature Branch (feature/validation)
 - I Added form validation for address and details pages 
 - Implemented client-side error handling
 - Added GDS error summary and field-level errors
 - Enhanced user experience with inline validation
 
-## Feature Name Branch
+### Feature Name Branch
 - Added user elements like Name and Destination name to the confirmation page to improve the user experience.
 
 ## The application uses 
