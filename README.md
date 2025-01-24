@@ -30,7 +30,7 @@ Here is the user flow for the "Space Travel Service" service on GOV.UK
 - 7. [Summary Page](app/views/summary-page.html)
 
 ##  Feature Images (Screenshots) 
-This directory contains screenshots of each key page in the user journey. The images serve as visual documentation of the prototype's interface and user flow.
+This directory contains screenshots of each key page in the user journey. The images serve as visual documentation of the prototype's interface and user flow. Check it out!
 
 [Features](app/views/layouts/FeaturesFile.md)
 
@@ -45,12 +45,39 @@ This directory contains screenshots of each key page in the user journey. The im
 
 ### Feature Branch (feature/validation)
 - I Added form validation for address and details pages 
-- Implemented client-side error handling
+- Implemented client-side error handling (shows if there are any errors)
 - Added GDS error summary and field-level errors
 - Enhanced user experience with inline validation
 
 ### Feature Name Branch
 - Added user elements like Name and Destination name to the confirmation page to improve the user experience.
+
+## Features Documentation (Implementation guide)
+
+#### Git Branching Strategy
+Main branch served as stable production code, while feature branches enabled me a safe development and testing of form validation and user experience improvements before integration.
+
+#### Local Storage Implementation (passing): 
+I Implemented it to:
+- Prevent data loss during navigation
+- Enable multi-step form completion
+- Improve user experience by saving progress
+- Allow session recovery after browser refresh 
+
+(WHY?: I implemented localStorage instead of query parameters or hidden form fields for this multi-step form as it provides better data persistence and security. Unlike query parameters which can expose data in URLs and hidden fields that are lost on refresh. I also saw this as crucial thing for government service forms where users may need to complete sections across multiple sessions.)
+
+#### Form Validation
+I Added it for:
+- Data quality assurance
+- Immediate user feedback
+- Accessibility compliance
+- Error prevention before submission
+
+#### Personalized Confirmation Message
+I Added user's name and destination to confirmation page to:
+- Create a personalized user experience
+- Build trust through acknowledgment
+- Follow GOV.UK design patterns for service completion pages
 
 ## The application uses 
 - GDS design patterns
