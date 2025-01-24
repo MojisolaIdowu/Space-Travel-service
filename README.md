@@ -4,13 +4,13 @@ Hello everyone, This is a GOV.UK-styled service designed by Mojisola Idowu.
 ## About
 It is a digital service to apply for space travel to the Moon or Mars. Users can select their destination, enter their name and address, and review/submit their booking
 
-## 🚀 Live Demo (Deployment)
+## Live Demo (Deployment)
 This service is deployed on Render.com. New deployments are triggered automatically when pushing to main branch.
 
-Render Link : https://space-travel-service-nad3.onrender.com
-Password : Pass
+- Render Link : https://space-travel-service-nad3.onrender.com
+- Password : Pass
 
-## 📍 User Flow
+## User Flow
 Here is the user flow for the "Space Travel Service" service on GOV.UK
 - 1. Landing Page: Welcome to the service.
 - 2. Start Page: Informational page about the space travel service.
@@ -20,7 +20,7 @@ Here is the user flow for the "Space Travel Service" service on GOV.UK
 - 6. Confirmation: User reviews and confirms their details.
 - 7. Submission: User submits the form.
 
-## 💡 Paths
+## Paths
 - 1. [Index Page](app/views/index.html)
 - 2. [Start Page](app/views/start-page.html)
 - 3. [Destination Page](app/views/destination-page.html)
@@ -28,6 +28,11 @@ Here is the user flow for the "Space Travel Service" service on GOV.UK
 - 5. [Address Page](app/views/address-page.html)
 - 6. [Confirmation Page](app/views/confirmation-page.html)
 - 7. [Summary Page](app/views/summary-page.html)
+
+##  Feature Images (Screenshots) 
+This directory contains screenshots of each key page in the user journey. The images serve as visual documentation of the prototype's interface and user flow.
+
+[Features](app/views/layouts/FeaturesFile.md)
 
 ## The Structure of the Git Repo consists of: 
 
