@@ -15,7 +15,7 @@ Here is the user flow for the "Space Travel Service" service on GOV.UK
 - 1. Landing Page: Welcome to the service.
 - 2. Start Page: Informational page about the space travel service.
 - 3. Destination Choice: User selects destination - Moon or Mars.
-- 4. Name: User enters their full name.
+- 4. Details (Name): User enters their full name.
 - 5. Address: User enters their Earth address.
 - 6. Confirmation: User reviews and confirms their details.
 - 7. Submission: User submits the form.
