@@ -80,4 +80,31 @@
 
     </div>
   </div>
+
+
+  <script>
+    document.addEventListener('DOMContentLoaded', function () {
+      // Get stored values
+      const fullName = localStorage.getItem('fullName') || 'Not provided';
+      const addressLine1 = localStorage.getItem('addressLine1') || 'Not provided';
+      const addressLine2 = localStorage.getItem('addressLine2') || '';
+      const addressTown = localStorage.getItem('addressTown') || 'Not provided';
+      const addressCounty = localStorage.getItem('addressCounty') || '';
+      const addressPostcode = localStorage.getItem('addressPostcode') || 'Not provided';
+      const destination = localStorage.getItem('destination') || 'Not provided';
+    
+      // Display values
+      document.getElementById('summaryFullName').textContent = fullName;
+      document.getElementById('summaryAddress').textContent = `${addressLine1}, ${addressLine2}, ${addressTown}, ${addressCounty}, ${addressPostcode}`.replace(/,\s+,/g, ',').replace(/,\s*$/, '');
+      document.getElementById('summaryDestination').textContent = destination;
+    });
+    </script>
+    
+    <div>
+      <p><strong>Full Name:</strong> <span id="summaryFullName"></span></p>
+      <p><strong>Address:</strong> <span id="summaryAddress"></span></p>
+      <p><strong>Destination:</strong> <span id="summaryDestination"></span></p>
+    </div>
+    
+
 {% endblock %}
