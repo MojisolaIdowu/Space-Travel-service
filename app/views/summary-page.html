@@ -80,4 +80,45 @@
 
     </div>
   </div>    
+
+  <script>
+// This is the local storage code for passing the users entire data through the form submission
+const FormStorage = {
+    // Saves all user form data under a single 'journey' key
+    saveName: function(formData) {
+        const currentData = this.getAllData() || {};
+        localStorage.setItem('journey', JSON.stringify({
+            ...currentData,
+            details: formData,
+            lastUpdated: new Date().toISOString()
+        }));
+    },
+
+    // Retrieves all stored form data
+    getAllData: function() {
+        const data = localStorage.getItem('journey');
+        return data ? JSON.parse(data) : null;
+    }
+};
+
+// Saves form data when user submits
+document.getElementById('nameForm').addEventListener('submit', function(event) {
+    const nameInput = document.getElementById('fullName');
+    
+    if (nameInput.value.trim()) {
+        FormStorage.saveName({
+            fullName: nameInput.value.trim(),
+            step: 'details'
+        });
+    }
+});
+
+// Load previously saved data when page loads
+document.addEventListener('DOMContentLoaded', function() {
+    const savedData = FormStorage.getAllData();
+    if (savedData?.details?.fullName) {
+        document.getElementById('fullName').value = savedData.details.fullName;
+    }
+});
+  </script>
 {% endblock %}

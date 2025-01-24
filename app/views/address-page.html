@@ -87,7 +87,7 @@
  </div>
 
  <script>
-   // Get form field values
+   // Feature validation (errors)
  function showAddressErrors() {
   const addressLine1 = document.getElementById('address-line-1').value;
   const addressTown = document.getElementById('address-town').value;
@@ -128,4 +128,49 @@ document.querySelector('form').addEventListener('submit', (e) => {
 });
 
 </script>
+
+<script>
+// This is the local storage code for passing (passing the address data through the form submission)
+  const FormStorage = {
+    saveAddress: function(formData) {
+        const currentData = this.getAllData() || {};
+        localStorage.setItem('journey', JSON.stringify({
+            ...currentData,
+            address: formData,
+            lastUpdated: new Date().toISOString()
+        }));
+    },
+
+    getAllData: function() {
+        const data = localStorage.getItem('journey');
+        return data ? JSON.parse(data) : null;
+    }
+};
+
+// Form submission handler
+document.querySelector('form').addEventListener('submit', function(event) {
+    if (!showAddressErrors()) {
+        FormStorage.saveAddress({
+            addressLine1: document.getElementById('address-line-1').value.trim(),
+            addressLine2: document.getElementById('address-line-2').value.trim(),
+            town: document.getElementById('address-town').value.trim(),
+            county: document.getElementById('address-county').value.trim(),
+            postcode: document.getElementById('address-postcode').value.trim(),
+            step: 'address'
+        });
+    }
+});
+
+// To Load saved data
+document.addEventListener('DOMContentLoaded', function() {
+    const savedData = FormStorage.getAllData();
+    if (savedData?.address) {
+        document.getElementById('address-line-1').value = savedData.address.addressLine1 || '';
+        document.getElementById('address-line-2').value = savedData.address.addressLine2 || '';
+        document.getElementById('address-town').value = savedData.address.town || '';
+        document.getElementById('address-county').value = savedData.address.county || '';
+        document.getElementById('address-postcode').value = savedData.address.postcode || '';
+    }
+});
+  </script>
 {% endblock %}

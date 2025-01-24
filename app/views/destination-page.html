@@ -91,4 +91,53 @@ document.getElementById('destinationForm').addEventListener('submit', function(e
   }
 });
 </script>
+
+<!--This is the local storage code for passing (passing the destination data through the form submission)-->
+<script>
+  const FormStorage = {
+    saveDestination: function(formData) {
+        const currentData = this.getAllData() || {};
+        localStorage.setItem('journey', JSON.stringify({
+            ...currentData,
+            destination: formData,
+            lastUpdated: new Date().toISOString()
+        }));
+    },
+
+    getAllData: function() {
+        const data = localStorage.getItem('journey');
+        return data ? JSON.parse(data) : null;
+    },
+
+    clearData: function() {
+        localStorage.removeItem('journey');
+    }
+};
+
+// Form submission handler
+document.querySelector('#destinationForm').addEventListener('submit', function(event) {
+    const selectedValue = document.querySelector('input[name="changedName"]:checked')?.value;
+    
+    if (selectedValue) {
+        FormStorage.saveDestination({
+            destination: selectedValue,
+            step: 'destination'
+        });
+    }
+});
+
+// Load saved data
+document.addEventListener('DOMContentLoaded', function() {
+    const savedData = FormStorage.getAllData();
+    if (savedData?.destination?.destination) {
+        const radios = document.getElementsByName('changedName');
+        radios.forEach(radio => {
+            if (radio.value === savedData.destination.destination) {
+                radio.checked = true;
+            }
+        });
+    }
+});
+</script>
+
 {% endblock %}

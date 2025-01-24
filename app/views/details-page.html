@@ -62,4 +62,45 @@ document.getElementById('nameForm').addEventListener('submit', function(event) {
   }
 });
 </script>
+
+<script>
+  // This is the local storage code for passing (passing the personal data through the form submission)
+const FormStorage = {
+    saveName: function(formData) {
+        const currentData = this.getAllData() || {};
+        localStorage.setItem('journey', JSON.stringify({
+            ...currentData,
+            details: formData,
+            lastUpdated: new Date().toISOString()
+        }));
+    },
+
+    getAllData: function() {
+        const data = localStorage.getItem('journey');
+        return data ? JSON.parse(data) : null;
+    }
+};
+
+// Form submission handler
+document.getElementById('nameForm').addEventListener('submit', function(event) {
+    const nameInput = document.getElementById('fullName');
+    
+    if (nameInput.value.trim()) {
+        FormStorage.saveName({
+            fullName: nameInput.value.trim(),
+            step: 'details'
+        });
+    }
+});
+
+// Loading saved data
+document.addEventListener('DOMContentLoaded', function() {
+    const savedData = FormStorage.getAllData();
+    if (savedData?.details?.fullName) {
+        document.getElementById('fullName').value = savedData.details.fullName;
+    }
+});
+  </script>
+  
+
 {% endblock %}
