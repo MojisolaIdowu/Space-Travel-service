@@ -1,4 +1,7 @@
-This is the Space Travel Service Platform, designed by Mojisola Idowu.
+## Space Travel Service
+Hello everyone, This is a GOV.UK-styled service designed by Mojisola Idowu.
+
+## About
 It is a digital service to apply for space travel to the Moon or Mars. Users can select their destination, enter their name and address, and review/submit their booking
 
 ## User Flow
@@ -11,7 +14,10 @@ Here is the user flow for the "Space Travel Service" service on GOV.UK
 - 6. Confirmation: User reviews and confirms their details.
 - 7. Submission: User submits the form.
 
-The Structure of thei Git Repo consists of: 
+## Paths
+app/views/index.html - Index Page
+
+## The Structure of the Git Repo consists of: 
 
 ## Main Branch (main)
 - This is the Base prototype functionality
@@ -26,7 +32,7 @@ The Structure of thei Git Repo consists of:
 - Added GDS error summary and field-level errors
 - Enhanced user experience with inline validation
 
-## Feature Name
+## Feature Name Branch
 - Added user elements like Name and Destination name to the confirmation page to improve the user experience.
 
 ## The application uses 
@@ -36,3 +42,6 @@ The Structure of thei Git Repo consists of:
 - Form validation
 - Check your answers pattern
 - Responsive design using Tailwind CSS
+
+## Deployment
+This service is deployed on Render.com. New deployments are triggered automatically when pushing to main branch.
